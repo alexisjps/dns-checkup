@@ -101,6 +101,8 @@ GEM
     debug (1.7.2)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    dnsruby (1.61.9)
+      simpleidn (~> 0.1)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -205,6 +207,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    simpleidn (0.2.1)
+      unf (~> 0.1.4)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -223,6 +227,9 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.8.2)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -250,6 +257,7 @@ DEPENDENCIES
   bootstrap (~> 5.2)
   capybara
   debug
+  dnsruby
   dotenv-rails
   font-awesome-sass (~> 6.1)
   importmap-rails
