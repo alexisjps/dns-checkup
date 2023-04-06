@@ -2,35 +2,46 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-8 offset-md-2">
-      <h1 class="text-center">DNS Lookup</h1>
-      <%= form_with url: dns_lookups_lookup_path, method: :get, local: true, class: 'mt-4' do %>
-        <div class="input-group mb-3">
-          <%= text_field_tag :domain, params[:domain], class: 'form-control', placeholder: 'Enter a domain name' %>
-          <div class="input-group-append">
-            <%= submit_tag 'Lookup', class: 'btn btn-primary' %>
-          </div>
+      <h1 class="text-center">Vérifier vos enregistrements DNS</h1>
+      <%= form_with url: dns_lookups_lookup_path, method: :get, local: true, class: 'mt-4' do |f| %>
+        <div class="input-group">
+          <%= f.text_field :domain, class: 'form-control', placeholder: 'Entrez un nom de domaine (ex: example.com)' %>
+          <button class="btn btn-primary" type="submit">Rechercher</button>
         </div>
       <% end %>
-
-      <% if @results && @results.any? %>
-        <table class="table table-striped table-bordered mt-4">
-          <thead class="thead-dark">
+        <br>
+        <br>
+        <h3 class="mt-5">DNS pour le nom de domaine : <b><%= @domain %></b></h3>
+      <% if @results %>
+        <table class="table table-bordered table-striped mt-5">
+          <thead>
             <tr>
               <th>Type</th>
-              <th>Value</th>
+              <th>Enregistrement</th>
             </tr>
           </thead>
           <tbody>
             <% @results.each do |record_type, records| %>
               <% if records %>
-                <% records.answer.each do |record| %>
+                <% records.each do |record| %>
                   <tr>
                     <td><%= record_type %></td>
                     <td>
-                      <% if record_type == Dnsruby::Types.CNAME %>
-                        <%= record.name %> <%= record.domainname %>
-                      <% else %>
-                        <%= record %>
+                      <% if record_type == 'MX' %>
+                        <%= "#{record.preference} #{record.exchange}" %>
+                      <% elsif record_type == 'CNAME' %>
+                        <%= record.domainname %>
+                        <% if record.domainname.to_s.include?('heroku') %>
+                          <i class="fa fa-check-circle text-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Bien configuré pour Heroku"></i>
+                        <% else %>
+                          <i class="fa fa-times-circle text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Non configuré pour Heroku"></i>
+                        <% end %>
+                      <% elsif record_type == 'TXT' %>
+                        <%= record.strings.join(' ') %>
+                      <% elsif record_type == 'A' || record_type == 'AAAA' %>
+                        <%= record.address %>
+                      <% elsif record_type == 'NS' %>
+                        <%= record.domainname %>
                       <% end %>
                     </td>
                   </tr>
@@ -39,11 +50,15 @@
             <% end %>
           </tbody>
         </table>
-      <% elsif @results %>
-        <div class="alert alert-warning mt-4" role="alert">
-          No results found
-        </div>
       <% end %>
     </div>
   </div>
 </div>
+
+<script>
+  // Activation des tooltips
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+</script>

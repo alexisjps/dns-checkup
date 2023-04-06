@@ -1,0 +1,31 @@
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <div class="container-fluid">
+    <div class="navbar-brand">
+    <%= link_to root_path do %>
+      <%= image_tag "https://astephan.digital/wp-content/uploads/2022/02/Logo-AlexStephan-AS-web.png", alt: "logo AS WEB", width: "200px" %>
+    <% end %>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+          <li class="nav-item active">
+             <a class="nav-link" href="https://as-web.website/">
+                Tous les outils
+              </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="https://as-web.website/">
+              Facturation
+            </a>
+          </li>     
+          <li class="nav-item active">
+            <%= link_to "Blog", "https://astephan.digital/blog", class: "nav-link", target: "_blank" %>
+          </li>
+      </ul>
+    </div>
+  </div>
+</div>
