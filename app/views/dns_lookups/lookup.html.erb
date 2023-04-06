@@ -28,7 +28,7 @@
                     <td><%= record_type %></td>
                     <td>
                       <% if record_type == Dnsruby::Types.CNAME %>
-                        <%= record.name %> => <%= record.domainname %>
+                        <%= record.name %> <%= record.domainname %>
                       <% else %>
                         <%= record %>
                       <% end %>
