@@ -15,7 +15,7 @@ class DnsLookupsController < ApplicationController
 
             record_types.each do |record_type|
             begin
-                @results[record_type] = resolver.query(domain, record_type)
+                @results[record_type] = resolver.query(domain, record_type).answer
             rescue Dnsruby::NXDomain, Dnsruby::ResolvTimeout
                 @results[record_type] = nil
             end
