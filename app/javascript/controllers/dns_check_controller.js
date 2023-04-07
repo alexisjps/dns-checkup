@@ -21,7 +21,21 @@ export default class extends Controller {
     }).join("")
 
     const cnameRows = data.cname_records.map(record => {
-      return `<tr><td>CNAME</td><td>${record.subdomain}.${domain}</td><td>${record.cname}</td></tr>`
+      const herokuConfigured = record.cname.includes("heroku");
+      const iconClass = herokuConfigured ? "text-success" : "text-danger";
+      const iconTitle = herokuConfigured ? "Domaine configuré pour Heroku" : "Domaine non configuré pour Heroku";
+      const iconName = herokuConfigured ? "check-circle" : "times-circle";
+
+      return `
+        <tr>
+          <td>CNAME</td>
+          <td>${record.subdomain}.${domain}</td>
+          <td>
+            ${record.cname}
+            <i class="fas fa-${iconName} ${iconClass}" title="${iconTitle}"></i>
+          </td>
+        </tr>
+      `;
     }).join("")
 
     const mxRows = data.mx_records.map(mx => {
@@ -46,6 +60,7 @@ export default class extends Controller {
         </tbody>
       </table>
     `
+
     this.tableTarget.innerHTML = table
   }
 }
