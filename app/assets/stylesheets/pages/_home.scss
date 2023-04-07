@@ -1,1 +1,25 @@
 // Specific CSS for your home-page
+.dns-results {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .dns-results th,
+  .dns-results td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .dns-results th {
+    background-color: #f2f2f2;
+    color: black;
+  }
+  
+  .dns-results tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .dns-results tr:hover {
+    background-color: #ddd;
+  }

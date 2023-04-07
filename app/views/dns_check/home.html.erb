@@ -1,0 +1,17 @@
+<div class="container mt-5">
+  <div data-controller="dns-check">
+    <form data-action="submit->dns-check#check" class="row g-3 justify-content-center">
+      <div class="col-auto">
+        <label for="domain" class="visually-hidden">Domaine :</label>
+        <div class="input-group">
+          <span class="input-group-text">Domaine :</span>
+          <input type="text" id="domain" data-dns-check-target="domain" placeholder="example.com" class="form-control">
+        </div>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Vérifier</button>
+      </div>
+    </form>
+    <div data-dns-check-target="table" class="mt-4"></div>
+  </div>
+</div>
